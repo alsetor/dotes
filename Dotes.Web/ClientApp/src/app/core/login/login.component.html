@@ -1,4 +1,4 @@
-<div class="login-form" (keyup.enter)="login()">
+<div class="login-form" (keyup.enter)="auth()">
   <div nz-row nzType="flex" nzJustify="center">
     <div nz-col>
       <h2>Welcome to Dotes</h2>
@@ -22,11 +22,13 @@
     </div>
   </div>
 
-  <ng-container *ngIf="errors">
-    <div class="error" [ngSwitch]="errors.status">
-      <label *ngSwitchCase="403">Неверный логин или пароль</label>
-    </div>
-  </ng-container>
+  <div nz-row nzType="flex" nzJustify="center">
+    <ng-container *ngIf="errors">
+      <div class="error" [ngSwitch]="errors.status">
+        <label *ngSwitchCase="403">Неверный логин или пароль</label>
+      </div>
+    </ng-container>
+  </div>
 
   <div nz-row nzType="flex" nzJustify="center">
     <div nz-col>
