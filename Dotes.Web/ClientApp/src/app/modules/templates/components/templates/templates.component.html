@@ -1,0 +1,52 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <h3>Templates</h3>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<br />
+
+<div>
+  <nz-select [(ngModel)]="templateType" (ngModelChange)="templateTypeChange($event)">
+    <nz-option [nzValue]="" nzLabel="All templates"></nz-option>
+    <nz-option *ngFor="let type of templateTypes" [nzValue]="type.id" [nzLabel]="type.name"></nz-option>
+  </nz-select>
+  <button nz-button nzType="primary" routerLink="/templates/create"><i nz-icon nzType="plus-circle"></i>Create</button>
+</div>
+
+<nz-table #nzTable [nzData]="documentTemplates" [nzLoading]="loading" [nzShowPagination]="showPagination" nzShowSizeChanger [nzPageSizeOptions]="[10, 20, 50]">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="name">Template</th>
+      <th nzShowSort nzSortKey="createdDate">Created</th>
+      <th nzShowSort nzSortKey="updatedDate">Updated</th>
+      <th nzShowSort nzSortKey="type">Type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data; let index = index">
+      <td>
+        <div>{{ data.name }}</div>
+        <div><b>{{ data.uid}}</b></div>
+      </td>
+      <td>{{ data.createdDate | date: 'dd.MM.yyyy HH:mm' }}</td>
+      <td>{{ data.updatedDate | date: 'dd.MM.yyyy HH:mm' }}</td>
+      <td>{{ data.type?.name }}</td>
+      <td>
+        <a (click)="downloadTemplate(data.id, data.fileName)">Download template</a>
+      </td>
+      <td>
+        <a routerLink="/templates/createdocument/{{data.id}}">Create document</a>
+      </td>
+      <td class="button-group">
+        <button nz-button nzType="primary" nzTooltipTitle="Edit" nzTooltipPlacement="top" nz-tooltip routerLink="/templates/edit/{{data.id}}"><i nz-icon nzType="edit"></i></button>
+        <button nz-button nzType="primary" nzTooltipTitle="Remove" nzTooltipPlacement="top" nz-tooltip nzOkText="Да" nz-popconfirm nzPopconfirmTitle="Are you sure?"
+                (nzOnConfirm)="deleteTemplate(data.id, index)" nzPopconfirmPlacement="topRight">
+          <i nz-icon nzType="delete"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

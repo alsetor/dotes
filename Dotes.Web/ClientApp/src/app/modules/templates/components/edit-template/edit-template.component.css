@@ -1,0 +1,33 @@
+.delete-btn {
+  float: right;
+  margin-right: 8px;
+}
+
+.template {
+  max-width: 800px;
+}
+
+[nz-row] {
+  margin-bottom: 20px;
+}
+
+.add-btn {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.text {
+  line-height: 32px;
+}
+
+h4 {
+  margin-bottom: 15px;
+}
+
+nz-select {
+  width: 100%;
+}
+
+.btn-back {
+  margin-bottom: 8px;
+}

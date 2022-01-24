@@ -1,0 +1,4 @@
+package.json
+
+# prettier isn't quite ready for this challenge yet
+*.html

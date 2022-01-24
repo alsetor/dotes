@@ -1,0 +1,29 @@
+h2,
+h3 {
+  text-align: center;
+}
+input,
+nz-input-group,
+button[nzType='primary'],
+h3 {
+  min-width: 350px;
+}
+i {
+  cursor: pointer;
+}
+div[nz-row] {
+  margin-top: 10px;
+}
+
+.login-form {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: -5px;
+}

@@ -1,0 +1,40 @@
+<div class="login-form" (keyup.enter)="login()">
+  <div nz-row nzType="flex" nzJustify="center">
+    <div nz-col>
+      <h2>Welcome to Dotes</h2>
+      <h3>Docx template storage and API for creating documents</h3>
+    </div>
+  </div>
+
+  <div nz-row nzType="flex" nzJustify="center">
+    <div nz-col>
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input placeholder="Input login" [(ngModel)]="login" />
+      </nz-input-group>
+    </div>
+  </div>
+
+  <div nz-row nzType="flex" nzJustify="center">
+    <div nz-col>
+      <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+        <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Input password" [(ngModel)]="password" />
+      </nz-input-group>
+    </div>
+  </div>
+
+  <ng-container *ngIf="errors">
+    <div class="error" [ngSwitch]="errors.status">
+      <label *ngSwitchCase="403">Неверный логин или пароль</label>
+    </div>
+  </ng-container>
+
+  <div nz-row nzType="flex" nzJustify="center">
+    <div nz-col>
+      <button [disabled]="submitBtnDisabled" nz-button nzType="primary" nzSize="large" (click)="auth()">Log In</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #suffixTemplate>
+  <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+</ng-template>

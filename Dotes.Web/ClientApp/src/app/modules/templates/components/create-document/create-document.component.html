@@ -1,0 +1,49 @@
+<nz-breadcrumb class="breadcrumb-cls">
+  <nz-breadcrumb-item>
+    <a routerLink="/templates">Templates</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    {{template?.name}}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<br />
+
+<button nz-button nzType="default" routerLink="/templates"><i nz-icon nzType="left"></i> Back to templates</button>
+
+<div *ngIf="template.tags">
+  <nz-form-item *ngFor="let tag of template.tags">
+    <nz-form-label [nzXs]="6" [nzSm]="6" [nzMd]="5" nzRequired>{{tag.name}}</nz-form-label>
+    <nz-form-control [nzXs]="18" [nzSm]="18" [nzMd]="9">
+      <ng-container [ngSwitch]="tag.type">
+
+        <input *ngSwitchCase="'String'" nz-input [(ngModel)]="tag.value" [ngModelOptions]="{standalone: true}" placeholder="Please input value" />
+
+        <input *ngSwitchCase="'Image'" type="file" (change)="handleFileInput($event.target.files, tag)">
+
+        <div *ngSwitchCase="'Table'">
+          <nz-table *ngSwitchCase="'Table'" nzBordered [nzData]="['']" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th *ngFor="let cellName of tag.cellNames">{{cellName}}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let raw of tag.value; let rawIndex = index">
+                <td *ngFor="let cellName of tag.cellNames; let cellIndex = index">
+                  <input nz-input [(ngModel)]="tag.value[rawIndex][cellIndex]" [ngModelOptions]="{standalone: true}" />
+                </td>
+                <td>
+                  <button nz-button nzType="primary" class="delete-btn" nz-popconfirm nzTitle="Are you sure?" (nzOnConfirm)="deleteRow(tag.value, rawIndex)"><i nz-icon nzType="delete"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <button nz-button nzType="dashed" (click)="addRow(tag)" class="add-btn"><i nz-icon nzType="plus-circle"></i>Add row</button>
+        </div>
+
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+</div>
+<button nz-button nzType="primary" (click)="generateDocument()">Generate document</button>

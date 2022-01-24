@@ -1,0 +1,45 @@
+<div class="shadow tag-tile">
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="2" class="text">
+      Type:
+    </div>
+    <div nz-col nzSpan="5">
+      <nz-select [(ngModel)]="templateTag.type" (ngModelChange)="templateTagTypeChanged()">
+        <nz-option *ngFor="let tagType of tagTypes" nzValue="{{tagType.id}}" nzLabel="{{tagType.name}}"></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col nzSpan="2" class="text">
+      Name:
+    </div>
+    <div nz-col nzSpan="5">
+      <input nz-input placeholder="Input name" [(ngModel)]="templateTag.name" />
+    </div>
+    <div nz-col nzSpan="3" class="text">
+      Description:
+    </div>
+    <div nz-col nzSpan="5">
+      <input nz-input placeholder="Input description" [(ngModel)]="templateTag.displayName" />
+    </div>
+    <ng-content></ng-content>
+  </div>
+
+  <ng-container *ngIf="templateTag.type === 'Table'">
+    <div nz-row nzGutter="16" *ngFor="let cellName of templateTag.cellNames; let i = index; trackBy:trackByIndex;">
+      <div nz-col nzSpan="4" nzOffset="6" class="text">
+        Cell {{i+1}}:
+      </div>
+      <div nz-col nzSpan="12">
+        <input nz-input [(ngModel)]="templateTag.cellNames[i]" placeholder="Название"/>
+      </div>
+      <div nz-col nzSpan="2">
+        <button nz-button nzType="primary" nzTooltipTitle="Delete cell" nzTooltipPlacement="right" nz-tooltip (click)="deleteTableCell(i)" class="delete-btn" [disabled]="isDeleteButtonDisabled()"><i nz-icon nzType="delete"></i></button>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="16">
+      <div nz-col nzSpan="14" nzOffset="10">
+        <button nz-button nzType="dashed" (click)="addTableCell()" [disabled]="isAddButtonDisabled()" class="add-btn"><i nz-icon nzType="plus-circle"></i>Add cell</button>
+      </div>
+    </div>
+  </ng-container>
+</div>

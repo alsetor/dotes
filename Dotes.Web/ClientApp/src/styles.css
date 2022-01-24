@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@-ms-viewport {
+  width: auto;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  textarea {
+    height: 4em !important;
+  }
+}
+@supports (-ms-accelerator: true) {
+  textarea {
+    height: 4em !important;
+  }
+}
+
+.ant-select-dropdown-menu-item {
+  white-space: unset !important;
+  text-overflow: unset !important;
+}
+
+.cdk-overlay-backdrop-showing {
+  z-index: unset !important;
+}

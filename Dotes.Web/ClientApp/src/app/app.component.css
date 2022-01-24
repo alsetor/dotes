@@ -1,0 +1,108 @@
+.logo {
+  width: 200px;
+  height: 64px;
+  float: left;
+  margin-right: 24px;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.logo label {
+  color: white;
+  font-size: 1.7em;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.header-menu {
+  line-height: 64px;
+  background: #264868;
+  display: inline-block;
+}
+
+.sider-menu {
+  border-right: 0;
+}
+
+.inner-layout {
+  padding: 0 24px 0 24px;
+  display: grid;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  background: #fff;
+  padding: 24px 24px 24px 24px;
+  min-height: calc(100vh - 133px);
+}
+
+.logged-in-content {
+  min-height: calc(100vh - 135px);
+}
+
+nz-header {
+  background: slategray;
+  line-height: 59px;
+}
+
+nz-footer {
+  text-align: center;
+  width: 100%;
+}
+
+.exit {
+  float: right;
+}
+
+.header-content {
+  line-height: 64px;
+}
+
+.header-content label {
+  color: white;
+  cursor: pointer;
+}
+
+.header-content i {
+  margin-right: 10px;
+}
+
+.menu {
+  margin-left: 29px;
+}
+
+.sider-menu li {
+  outline: 0;
+}
+
+.trigger {
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-right: 13px;
+  margin-left: -31px;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.big-menu {
+  white-space: initial;
+  line-height: 20px;
+}
+.big-menu p {
+  margin-left: 28px;
+}
+.big-menu i {
+  vertical-align: middle;
+  height: 0px;
+}

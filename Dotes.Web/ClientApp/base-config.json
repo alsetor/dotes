@@ -1,0 +1,6 @@
+{
+  "deployUrl": {
+    "dev": "/",
+    "production": "https://localhost:44386/"
+  }
+}

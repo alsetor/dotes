@@ -1,0 +1,22 @@
+nz-breadcrumb {
+  padding: 10px 10px 10px 0px;
+  background: #f0f2f5;
+  margin: -25px -25px 0 -25px;
+}
+
+[nz-button] {
+  margin-right: 8px;
+}
+
+nz-table {
+  margin-top: 16px;
+}
+
+nz-select {
+  margin-right: 8px;
+  width: 200px;
+}
+
+.button-group {
+  white-space: nowrap;
+}
