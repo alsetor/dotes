@@ -20,3 +20,12 @@ nz-select {
 .button-group {
   white-space: nowrap;
 }
+
+.template-icon {
+  margin-right: 5px;
+  font-size: 32px;
+}
+
+.inline-flex {
+  display: inline-flex;
+}

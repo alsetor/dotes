@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TagType } from '../../../../models/tag-type.model';
+import { TagType, TagTypeDescription } from '../../../../models/tag-type.model';
 import { Tag } from '../../../../models/tag.model';
 
 @Component({
@@ -10,9 +10,9 @@ import { Tag } from '../../../../models/tag.model';
 export class TemplateTagComponent implements OnInit {
   @Input() templateTag: Tag;
   tagTypes = [
-    { id: 'String', name: 'Строка' },
-    { id: 'Table', name: 'Таблица' },
-    { id: 'Image', name: 'Изображение' }
+    { id: 'String', name: TagTypeDescription.get(TagType.String) },
+    { id: 'Table', name: TagTypeDescription.get(TagType.Table) },
+    { id: 'Image', name: TagTypeDescription.get(TagType.Image) }
   ];
 
   constructor() {}

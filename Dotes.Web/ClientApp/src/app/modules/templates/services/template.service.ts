@@ -32,25 +32,18 @@ export class TemplateService {
     const endpoint = `${url}DeleteTemplate`;
 
     return this.http.post<any>(endpoint, { id: id }, { headers: this.headers })
-      .pipe(catchError(this.handleError('getTagsByTemplateId', null, true)));
-  }
-
-  getTagsByTemplateId(id: number): Observable<any> {
-    const endpoint = `${url}GetTagsByTemplateId/${id}`;
-
-    return this.http.get<any>(endpoint, { headers: this.headers })
-      .pipe(catchError(this.handleError('getTagsByTemplateId', null)));
+      .pipe(catchError(this.handleError('deleteTemplate', null, true)));
   }
 
   getTemplate(id: number): Observable<Template> {
-    const endpoint = `${url}GetTemplate/${id}`;
+    const endpoint = `${url}GetTemplate?id=${id}`;
 
     return this.http.get<any>(endpoint, { headers: this.headers })
       .pipe(catchError(this.handleError('getTemplate', null)));
   }
 
   getFileByTemplateId(templateId: number, fileName: string) {
-    const endpoint = `${url}getFileByTemplateId/${templateId}`;
+    const endpoint = `${url}getFileByTemplateId?templateId=${templateId}`;
 
     this.http.get(endpoint, { headers: this.headers, responseType: 'blob' }).subscribe(
       (blob) => {

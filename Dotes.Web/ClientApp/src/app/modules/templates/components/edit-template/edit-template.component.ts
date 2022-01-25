@@ -60,25 +60,19 @@ export class EditTemplateComponent implements OnInit, OnDestroy {
   }
 
   getTemplateTypes() {
-    this.templateTypesService
-      .getTemplateTypes()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe((result) => {
-        this.templateTypes = result;
-      });
+    this.templateTypesService.getTemplateTypes().pipe(takeUntil(this.ngUnsubscribe)).subscribe((result) => {
+      this.templateTypes = result;
+    });
   }
 
   getTemplate(): void {
-    this.templateService
-      .getTemplate(this.id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((template) => {
-        this.template = template;
-        this.initialTags = JSON.parse(JSON.stringify(template.tags));
-        this.name = template.name;
-        this.typeId = template.type.id;
-        this.fileBase64 = template.fileBase64;
-      });
+    this.templateService.getTemplate(this.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe((template) => {
+      this.template = template;
+      this.initialTags = JSON.parse(JSON.stringify(template.tags));
+      this.name = template.name;
+      this.typeId = template.type.id;
+      this.fileBase64 = template.fileBase64;
+    });
   }
 
   addTemplateTag() {
