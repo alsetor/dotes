@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { AuthTemplatesService } from '../../services/auth/auth-templates.service';
+import { first, takeUntil } from 'rxjs/operators';
+import { AuthService } from '../../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -18,13 +18,12 @@ export class LoginTemplateComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe = new Subject();
 
-  isRequesting: boolean;
   errors: HttpErrorResponse | string;
 
   ngOnInit() {
     this.route.queryParams.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
       this.returnUrl = params['returnUrl'] || '/';
-      if (this.authService.isLoggedIn()) {
+      if (this.authService.isLoggedIn) {
         this.router.navigateByUrl(this.returnUrl);
       }
     });
@@ -35,14 +34,13 @@ export class LoginTemplateComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  constructor(private authService: AuthTemplatesService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   auth() {
     if (this.login && this.password) {
       this.authService
         .login(this.login, this.password)
-        .finally(() => (this.isRequesting = false))
-        .pipe(takeUntil(this.ngUnsubscribe))
+        .pipe(first())
         .subscribe(
           (result) => {
             if (result) {

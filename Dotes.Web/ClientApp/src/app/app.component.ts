@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthTemplatesService } from './services/auth/auth-templates.service';
+import { AuthService } from './services/auth/auth.service';
 import { SideMenuService } from './services/side-menu.service';
 import { environment } from '../environments/environment';
 
@@ -11,7 +11,7 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   year = new Date().getFullYear();
 
-  constructor(private authService: AuthTemplatesService, private sideMenuService: SideMenuService) {}
+  constructor(private authService: AuthService, private sideMenuService: SideMenuService) {}
 
   get isCollapsed() {
     return this.sideMenuService.isCollapsed;
@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   isLoggedIn() {
-    return this.authService.isLoggedIn();
+    return this.authService.isLoggedIn;
   }
 
   logout() {

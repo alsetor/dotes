@@ -5,7 +5,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { TemplateType } from '../../../models/template-type.model';
 
-const url = '/api/template/';
+const url = '/template/';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +27,7 @@ export class TemplateTypesService {
 
     if (!this.needToRefreshTemplateType) return of (this.templateTypes);
 
-    return this.http
-      .get<any>(endpoint, { headers: this.headers })
-      .pipe(
+    return this.http.get<any>(endpoint, { headers: this.headers }).pipe(
         map((types) => {
           this.templateTypes = types;
           this.needToRefreshTemplateType = false;

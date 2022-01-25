@@ -8,15 +8,15 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
-import { ConfigService } from './services/config.service';
 
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './core/shared.module';
-import { CacheInterceptor } from './core/cacheinterceptor';
-import { AuthTemplatesGuard } from './services/auth/auth-templates.guard';
-import { AuthTemplatesService } from './services/auth/auth-templates.service';
+import { AuthGuard } from './services/auth/auth.guard';
+import { AuthService } from './services/auth/auth.service';
+import { BasicAuthInterceptor } from './core/basic-auth.interceptor';
+import { ErrorInterceptor } from './core/error.interceptor';
 
 const ngZorroConfig: NzConfig = {
   notification: { nzDuration: 15000 }
@@ -36,13 +36,13 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key) => antDesi
   declarations: [AppComponent],
   imports: [AppRoutingModule, SharedModule, HttpClientModule, BrowserModule, BrowserAnimationsModule],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: NZ_I18N, useValue: ru_RU },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: NZ_ICONS, useValue: icons },
-    ConfigService,
-    AuthTemplatesGuard,
-    AuthTemplatesService
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

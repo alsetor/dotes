@@ -7,6 +7,7 @@ using Templates.Web.Models;
 
 namespace Templates.Web.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class DotesController : ControllerBase
@@ -23,7 +24,6 @@ namespace Templates.Web.Controllers
         /// </summary>
         /// <param name="model">Model with filled tags</param>
         [SwaggerOperation(Summary = "Return generated document by template uid")]
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult GenerateDocument([FromBody] GenerateDocumentModel model)
         {
@@ -35,7 +35,6 @@ namespace Templates.Web.Controllers
         /// Return template with tags by uid
         /// </summary>
         [SwaggerOperation(Summary = "Return template with tags by uid")]
-        [AllowAnonymous]
         [HttpGet("{uid}")]
         public IActionResult GetTemplateByUid(Guid uid)
         {
@@ -44,7 +43,6 @@ namespace Templates.Web.Controllers
         }
 
         [SwaggerOperation(Summary = "Return template tags by template uid")]
-        [AllowAnonymous]
         [HttpGet("{uid}")]
         public IActionResult GetTagsByTemplateUid(Guid uid)
         {

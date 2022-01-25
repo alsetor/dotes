@@ -1,16 +1,13 @@
-﻿namespace Templates.Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Templates.Web.Models
 {
     public class LoginModel
     {
-        public LoginModel() { }
-
-        public LoginModel(string login, string password)
-        {
-            Login = login;
-            Password = password;
-        }
-
+        [Required]
         public string Login { get; set; }
+
+        [Required]
         public string Password { get; set; }
     }
 }

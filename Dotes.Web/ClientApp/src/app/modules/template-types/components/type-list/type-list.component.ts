@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TemplateTypesService } from '../../services/template-types.service';
 import { TemplateType } from '../../../../models/template-type.model';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
@@ -36,13 +37,10 @@ export class TypeListComponent implements OnInit, OnDestroy {
   }
 
   getTemplateTypes() {
-    this.templateTypesService
-      .getTemplateTypes()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe((result) => {
-        this.templateTypes = result;
-        this.loading = false;
-      });
+    this.templateTypesService.getTemplateTypes().pipe(takeUntil(this.ngUnsubscribe)).subscribe((result) => {
+      this.templateTypes = result;
+      this.loading = false;
+    });
   }
 
   create() {

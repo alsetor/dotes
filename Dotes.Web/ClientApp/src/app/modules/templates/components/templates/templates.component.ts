@@ -39,15 +39,12 @@ export class TemplatesComponent implements OnInit, OnDestroy {
 
   getTemplates(): void {
     this.loading = true;
-    this.templateService
-      .getTemplates()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((documentTemplates) => {
-        this.documentTemplates = documentTemplates;
-        this.showPagination = documentTemplates.length > 10;
-        this.sort({ key: 'createdDate', value: 'descend' });
-        this.loading = false;
-      });
+    this.templateService.getTemplates().pipe(takeUntil(this.ngUnsubscribe)).subscribe((templates) => {
+      this.documentTemplates = templates;
+      this.showPagination = templates.length > 10;
+      this.sort({ key: 'createdDate', value: 'descend' });
+      this.loading = false;
+    });
 
     this.getTemplateTypes();
   }
@@ -122,12 +119,9 @@ export class TemplatesComponent implements OnInit, OnDestroy {
   }
 
   getTemplateTypes() {
-    this.templateTypesService
-      .getTemplateTypes()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe((result) => {
-        this.templateTypes = result;
-        this.loading = false;
-      });
+    this.templateTypesService.getTemplateTypes().pipe(takeUntil(this.ngUnsubscribe)).subscribe((result) => {
+      this.templateTypes = result;
+      this.loading = false;
+    });
   }
 }

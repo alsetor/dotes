@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Template } from 'src/app/models/template.model';
-import { TagValue } from 'src/app/models/tag-value.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { saveAs } from 'file-saver';
-import { Tag } from 'src/app/models/tag.model';
 
-const url = '/api/template/';
+const url = '/template/';
 
 @Injectable({
   providedIn: 'root'

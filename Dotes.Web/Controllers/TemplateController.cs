@@ -2,12 +2,14 @@
 using System.Linq;
 using Dotes.BE.Entities;
 using Dotes.BL.Templates;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Templates.Web.Controllers
 {
+    [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class TemplateController : ControllerBase
     {
@@ -19,27 +21,27 @@ namespace Templates.Web.Controllers
             _templatesBL = templatesBl;
         }
 
-        [HttpGet]
+        [HttpGet("GetTemplates")]
         public IActionResult GetTemplates(int? typeId = null)
         {
             return Ok(_templatesBL.GetTemplates(typeId));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetTemplate")]
         public IActionResult GetTemplate(long id)
         {
             var model = _templatesBL.GetTemplateById(id);
             return Ok(model);
         }
 
-        [HttpGet("{templateId}")]
+        [HttpGet("GetFileByTemplateId")]
         public IActionResult GetFileByTemplateId(long templateId)
         {
             var file = _templatesBL.GetFileByTemplateId(templateId);
             return File(file, ContentType);
         }
 
-        [HttpPost]
+        [HttpPost("CreateTemplate")]
         public IActionResult CreateTemplate([FromBody] Template model)
         {
             model.File = model.FileBase64.Split(',').Length > 1 ? Convert.FromBase64String(model.FileBase64.Split(',')[1]) : new byte[0];
@@ -47,7 +49,7 @@ namespace Templates.Web.Controllers
             return Ok(id);
         }
 
-        [HttpPost]
+        [HttpPost("UpdateTemplate")]
         public IActionResult UpdateTemplate([FromBody] Template model)
         {
             model.File = model.FileBase64.Split(',').Length > 1 ? Convert.FromBase64String(model.FileBase64.Split(',')[1]) : new byte[0];
@@ -55,28 +57,28 @@ namespace Templates.Web.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("DeleteTemplate")]
         public IActionResult DeleteTemplate([FromBody] Template model)
         {
             var result = _templatesBL.SetTemplateDeleted(model.Id);
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("CreateTemplateType")]
         public IActionResult CreateTemplateType([FromBody] TemplateType type)
         {
             var result = _templatesBL.CreateTemplateType(type);
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetTemplateTypes")]
         public IActionResult GetTemplateTypes()
         {
             var result = _templatesBL.GetTemplateTypes();
             return Ok(result.OrderBy(r => r.Name));
         }
 
-        [HttpPut]
+        [HttpPut("UpdateTemplateType")]
         public IActionResult UpdateTemplateType([FromBody] TemplateType type)
         {
             var result = _templatesBL.UpdateTemplateType(type);
