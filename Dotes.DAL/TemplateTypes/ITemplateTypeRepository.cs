@@ -8,5 +8,6 @@ namespace Dotes.DAL.TemplateTypes
         bool CreateTemplateType(TemplateType type);
         List<TemplateType> GetTemplateTypes();
         bool UpdateTemplateType(TemplateType type);
+        bool DeleteTemplateType(long id);
     }
 }

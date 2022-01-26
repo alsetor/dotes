@@ -242,11 +242,6 @@ namespace Dotes.DAL.Templates
                     FileName = (string)localReader.GetField("filename"),
                     CreatedDate = DateTimeOffset.Parse(localReader.GetField("createddate").ToString()),
                     UpdatedDate = DateTimeOffset.Parse(localReader.GetField("updateddate").ToString()),
-                    Type = new TemplateType
-                    {
-                        Id = (long)localReader.GetField("typeid"),
-                        Name = (string)localReader.GetField("typename")
-                    },
                     Tags = JsonConvert.DeserializeObject<List<Tag>>(localReader.GetField("tags").ToString().Replace("\"[", "[").Replace("]\"", "]").Replace("\\", ""))
                 };
 
@@ -254,6 +249,20 @@ namespace Dotes.DAL.Templates
                 if (file != null)
                 {
                     template.File = (byte[])file;
+                }
+
+                var typeId = localReader.GetField("typeid");
+                if (typeId != null)
+                {
+                    template.Type = new TemplateType
+                    {
+                        Id = (long)localReader.GetField("typeid"),
+                        Name = (string)localReader.GetField("typename")
+                    };
+                }
+                else
+                {
+                    template.Type = new TemplateType();
                 }
 
                 return template;

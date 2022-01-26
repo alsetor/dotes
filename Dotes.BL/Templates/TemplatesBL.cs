@@ -92,6 +92,11 @@ namespace Dotes.BL.Templates
             return _templateTypeRepository.UpdateTemplateType(type);
         }
 
+        public bool DeleteTemplateType(long id)
+        {
+            return _templateTypeRepository.DeleteTemplateType(id);
+        }
+
         private Content GetTemplateContent(List<TagValue> tagValues, List<Tag> tags)
         {
             var content = new Content();

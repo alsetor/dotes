@@ -10,9 +10,9 @@ import { Tag } from '../../../../models/tag.model';
 export class TemplateTagComponent implements OnInit {
   @Input() templateTag: Tag;
   tagTypes = [
-    { id: 'String', name: TagTypeDescription.get(TagType.String) },
-    { id: 'Table', name: TagTypeDescription.get(TagType.Table) },
-    { id: 'Image', name: TagTypeDescription.get(TagType.Image) }
+    { id: TagTypeDescription.get(TagType.String), name: TagTypeDescription.get(TagType.String) },
+    { id: TagTypeDescription.get(TagType.Table), name: TagTypeDescription.get(TagType.Table) },
+    { id: TagTypeDescription.get(TagType.Image), name: TagTypeDescription.get(TagType.Image) }
   ];
 
   constructor() {}

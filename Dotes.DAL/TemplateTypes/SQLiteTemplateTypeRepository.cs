@@ -94,5 +94,32 @@ namespace Dotes.DAL.TemplateTypes
                 return false;
             }
         }
+
+        public bool DeleteTemplateType(long id)
+        {
+            try
+            {
+                using (var connection = (SqliteConnection)Connection)
+                {
+                    connection.Open();
+                    var cmd = new SqliteCommand
+                    {
+                        Connection = connection,
+                        CommandText = "DELETE FROM template_types WHERE id = :id; UPDATE templates SET typeid = null WHERE typeid = :id",
+                    };
+                    cmd.Parameters.Add(new SqliteParameter("id", id));
+
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }

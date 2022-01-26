@@ -84,5 +84,12 @@ namespace Templates.Web.Controllers
             var result = _templatesBL.UpdateTemplateType(type);
             return Ok(result);
         }
+
+        [HttpDelete("DeleteTemplateType")]
+        public IActionResult DeleteTemplateType(long typeId)
+        {
+            var result = _templatesBL.DeleteTemplateType(typeId);
+            return Ok(result);
+        }
     }
 }

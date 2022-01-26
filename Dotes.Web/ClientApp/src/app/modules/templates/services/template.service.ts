@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Template } from 'src/app/models/template.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Observable, throwError, of } from 'rxjs';
@@ -13,39 +13,34 @@ const url = '/template/';
   providedIn: 'root'
 })
 export class TemplateService {
-  headers: HttpHeaders;
 
-  constructor(private http: HttpClient, private message: NzNotificationService, private route: ActivatedRoute) {
-    this.headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `bearer ${localStorage.getItem('auth_template_token')}`);
-  }
+  constructor(private http: HttpClient, private message: NzNotificationService, private route: ActivatedRoute) { }
 
   getTemplates(params: Params = this.route.snapshot.queryParams): Observable<Template[]> {
     const endpoint = `${url}GetTemplates`;
 
-    return this.http.get<any>(endpoint, { headers: this.headers, params })
+    return this.http.get<any>(endpoint, { params })
       .pipe(catchError(this.handleError('getTemplates', [])));
   }
 
   deleteTemplate(id: number): Observable<any> {
     const endpoint = `${url}DeleteTemplate`;
 
-    return this.http.post<any>(endpoint, { id: id }, { headers: this.headers })
+    return this.http.post<any>(endpoint, { id: id })
       .pipe(catchError(this.handleError('deleteTemplate', null, true)));
   }
 
   getTemplate(id: number): Observable<Template> {
     const endpoint = `${url}GetTemplate?id=${id}`;
 
-    return this.http.get<any>(endpoint, { headers: this.headers })
+    return this.http.get<any>(endpoint)
       .pipe(catchError(this.handleError('getTemplate', null)));
   }
 
   getFileByTemplateId(templateId: number, fileName: string) {
     const endpoint = `${url}getFileByTemplateId?templateId=${templateId}`;
 
-    this.http.get(endpoint, { headers: this.headers, responseType: 'blob' }).subscribe(
+    this.http.get(endpoint, { responseType: 'blob' }).subscribe(
       (blob) => {
         saveAs(blob, fileName);
       },
@@ -57,7 +52,7 @@ export class TemplateService {
     const endpoint = `${url}CreateTemplate`;
 
     return this.http
-      .post<any>(endpoint, documentTemplate, { headers: this.headers })
+      .post<any>(endpoint, documentTemplate)
       .pipe(catchError(this.handleError('createTemplate', null, true)));
   }
 
@@ -65,7 +60,7 @@ export class TemplateService {
     const endpoint = `${url}UpdateTemplate`;
 
     return this.http
-      .post<any>(endpoint, documentTemplate, { headers: this.headers })
+      .post<any>(endpoint, documentTemplate)
       .pipe(catchError(this.handleError('updateTemplate', null, true)));
   }
 

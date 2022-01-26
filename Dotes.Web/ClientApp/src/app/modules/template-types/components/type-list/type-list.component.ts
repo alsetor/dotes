@@ -75,4 +75,13 @@ export class TypeListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  delete(type: TemplateType) {
+    this.templateTypesService.deleteTemplateType(type.id).subscribe((result) => {
+      if (result) {
+        this.getTemplateTypes();
+        this.message.success('Type name deleted', '');
+      }
+    });
+  }
 }
