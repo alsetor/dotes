@@ -1,0 +1,50 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <h3>Templates</h3>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<br />
+
+<div>
+  <button nz-button nzType="primary" routerLink="/templates/create"><i nz-icon nzType="plus-circle"></i>Create</button>
+</div>
+
+<nz-table #nzTable [nzData]="documentTemplates" [nzLoading]="loading" [nzShowPagination]="showPagination" nzShowSizeChanger [nzPageSizeOptions]="[10, 20, 50]">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="name">Template</th>
+      <th nzShowSort nzSortKey="type">File Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data; let index = index">
+      <td>
+        <div class="inline-flex">
+          <div class="template-icon"><i nz-icon nzType="file-word" nzTheme="twotone"></i></div>
+          <div>
+            <div>{{ data.name }}</div>
+            <div>id: <b>{{ data.id}}</b></div>
+          </div>
+        </div>
+      </td>
+      <td>{{ data.fileName }}</td>
+      
+      <td class="button-group">
+        <button nz-button nzType="primary" nzTooltipTitle="Create document" nzTooltipPlacement="top" nz-tooltip routerLink="/templates/createdocument/{{data.id}}">
+          <i nz-icon nzType="plus-square"></i>
+        </button>
+        <button nz-button nzType="primary" nzTooltipTitle="Edit" nzTooltipPlacement="top" nz-tooltip routerLink="/templates/edit/{{data.id}}">
+          <i nz-icon nzType="edit"></i>
+        </button>
+        <button nz-button nzType="primary" nzTooltipTitle="Download template" nzTooltipPlacement="top" nz-tooltip (click)="downloadTemplate(data.id, data.fileName)">
+          <i nz-icon nzType="download"></i>
+        </button>
+        <button nz-button nzType="primary" nzTooltipTitle="Remove" nzTooltipPlacement="top" nz-tooltip nzOkText="Да" nz-popconfirm nzPopconfirmTitle="Are you sure?"
+                (nzOnConfirm)="deleteTemplate(data.id, index)" nzPopconfirmPlacement="topRight">
+          <i nz-icon nzType="delete"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

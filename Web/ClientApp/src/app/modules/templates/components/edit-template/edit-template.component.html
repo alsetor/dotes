@@ -1,0 +1,57 @@
+<nz-breadcrumb style="padding: 10px 10px 10px 0px; background: #f0f2f5; margin: -25px -25px 0 -25px;">
+  <nz-breadcrumb-item>
+    <h3>{{isUpdateMode ? 'Editing' : 'Creating'}} template</h3>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<br />
+
+<div class="template">
+  <button nz-button nzType="default" routerLink="/templates" class="btn-back"><i nz-icon nzType="left"></i> Back to templates</button>
+
+  <h4>{{isUpdateMode ? 'Editing' : 'Creating'}} template</h4>
+
+  <div nz-row *ngIf="isUpdateMode">
+    <div nz-col nzSpan="24">
+      <p>Template Id: {{template.id}}</p>
+    </div>
+  </div>
+
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="3" class="text">
+      Name:
+    </div>
+    <div nz-col nzSpan="11">
+      <input nz-input placeholder="Input name" [(ngModel)]="template.name" />
+    </div>
+  </div>
+
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="3" class="text">
+      File:
+    </div>
+    <div nz-col nzSpan="7">
+      <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+        <button nz-button [disabled]="isChooseFileButtonDisabled()"><i nz-icon nzType="upload"></i><span>Choose docx file</span></button>
+      </nz-upload>
+    </div>
+    <div nz-col nzSpan="10" *ngIf="isUpdateMode" class="text">
+      <a (click)="downloadTemplate()">Download template</a>
+    </div>
+  </div>
+
+  <h4>{{isUpdateMode ? 'Changing tags' : 'Creating tags'}}</h4>
+
+  <app-template-tag *ngFor="let tag of template.tags; let i = index" [templateTag]="tag">
+    <div nz-col nzSpan="2">
+      <button nz-button nzType="primary" nzTooltipTitle="Удалить тег" nzTooltipPlacement="right" nz-tooltip (click)="deleteTemplateTag(i)" class="delete-btn" [disabled]="isDeleteButtonDisabled()"><i nz-icon nzType="delete"></i></button>
+    </div>
+  </app-template-tag>
+
+  <button nz-button nzType="dashed" (click)="addTemplateTag()" class="add-btn" [disabled]="isAddButtonDisabled()"><i nz-icon nzType="plus-circle"></i>Add tag</button>
+  <p *ngIf="isUpdateMode && ifHasChangesInTags()" style="color: red;">Don't forget to upload new template file'</p>
+  <button nz-button nzType="primary" (click)="updateTemplate()" *ngIf="isUpdateMode; else createMode" [disabled]="isUpdateButtonDisabled()">Update</button>
+</div>
+
+<ng-template #createMode>
+  <button nz-button nzType="primary" (click)="createTemplate()" [disabled]="isSaveButtonDisabled()">Save</button>
+</ng-template>

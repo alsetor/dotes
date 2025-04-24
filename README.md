@@ -1,27 +1,77 @@
-# Dotes
-This project allows you to create document templates using a web interface and then generate docx files from the template using the API. The template is a docx file with content control tags.
+# Dotes - Document Template System
 
-Dotes contains 3 things:
-* Web interface for creating templates and then storing them in a SQLite database.
-* API for generating documents based on [TemplateEngine.Docx](https://github.com/UNIT6-open/TemplateEngine.Docx).
-* Angular example showing how to use the API to generate a document.
+Dotes is a full-stack application for creating and managing DOCX document templates enriched with dynamic tags. It provides a user-friendly interface and a powerful API for generating DOCX files using predefined templates and tag values.
+
+---
+
+##  Features
+
+-  Upload and manage .docx templates with dynamic tag support
+-  Generate documents dynamically by replacing tags with values
+-  Download generated documents and original templates
+-  RESTful API for integration into other systems
+-  Angular frontend app to display how it works
+-  Docker support for easy deployment
+
+
+##  Technologies
+
+- .NET 9
+- ASP.NET Core Web API
+- Entity Framework Core
+- Angular
+- MSSQL
+- [TemplateEngine.Docx](https://github.com/UNIT6-open/TemplateEngine.Docx)
+- Docker for containerization
+
+
+##  Project Structure
+
+Dotes
+- Web -> *ASP.NET Core Web API project with Angular client*
+- Domain -> *Entities*
+- Application -> *Interfaces and app logic*
+- Infrastructure -> *Implements interfaces from the Application layer, dealing with data access and template engine*
+- README.md
+- Dockerfile
+
+---
+
+##  Running the App
+
+###  Locally (Development mode)
+
+```bash
+cd Web
+dotnet run --launch-profile "Web"
+```
+Project runs at: https://localhost:5001, and Swagger UI is available on https://localhost:5001/swagger
+
+###  With Docker
+```bash
+cd Dotes
+docker build -t dotes .
+docker run -d -p 8112:80 --name dotes dotes
+```
+
+Visit the app at: http://localhost:8112. Note: HTTPS not enabled in Docker by default.
+
+---
+
+##  API Overview
+Launch your browser at
+https://localhost:5001/swagger
+
+![Swagger API](https://github.com/alsetor/dotes/blob/main/swagger-page.png)
 
 ## Web Interface
-The main page contains a list of templates stored in the SQLite database.
+The main page contains a list of templates stored in the MSSQL database.
 
 ![Templates list page](https://github.com/alsetor/dotes/blob/main/templates-page.png)
 
-To create a template, you need to upload a docx file with the content control tags, and then describe this tags. There are 3 types of tags: **String**, **Image**, **Table**. The template has a Uid that you should use in the API methods.
+To create a template, you need to upload a docx file with the content control tags, and then describe this tags. There are 3 types of tags: **String**, **Image**, and **Table**.
 
 ![Template page](https://github.com/alsetor/dotes/blob/main/template-page.png)
-
-## API
-API has 3 methods:
-* GenerateDocument
-* GetTemplateByUid
-* GetTagsByTemplateUid
-
-![Swagger API](https://github.com/alsetor/dotes/blob/main/swagger-page.png)
 
 ## Angular Example
 Click the "Create Document" button next to a template on the template list page to navigate to the example page, which contains a dynamic form for generating a document.
@@ -32,5 +82,6 @@ Fill out the form and click the submit button to generate the document. The gene
 
 ![Word example](https://github.com/alsetor/dotes/blob/main/word-example.png)
 
-[DotesService](https://github.com/alsetor/dotes/blob/main/Dotes.Web/ClientApp/src/app/modules/templates/services/dotes.service.ts) provides methods for using the API, described below.
-[CreateDocumentByTemplateComponent](https://github.com/alsetor/dotes/blob/main/Dotes.Web/ClientApp/src/app/modules/templates/components/create-document/create-document.component.ts) uses the _getTagsByTemplateUid_ API method to create a dynamic form that the user should fill out to generate a document from a template. Submitting the form calls the _generateDocument_ API method to download the docx document with filled tags.
+---
+
+Created by Aleksandr Toroshchin, 2022-2025
