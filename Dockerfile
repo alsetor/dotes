@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-MAINTAINER alsetor@gmail.com
+LABEL maintainer="alsetor@gmail.com"
 
 WORKDIR /app
 EXPOSE 80
